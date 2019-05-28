@@ -752,4 +752,6 @@ Signature: %5$s</string>
     <string name="cafeteria_cards_settings_title">Select cafeterias to be shown</string>
     <string name="settings_chose_cafeteria_cards">Choose Cafeteria Cards</string>
     <string name="settings_no_location_selected">No Location Selected</string>
+    <string name="update_downloaded">An update has just been downloaded.</string>
+    <string name="update_restart">RESTART</string>
 </resources>

@@ -2,6 +2,7 @@ package de.tum.in.tumcampusapp.component.ui.overview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.Network;
@@ -11,6 +12,15 @@ import android.view.Menu;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 
 import java.util.List;
 
@@ -49,6 +59,9 @@ public class MainActivity extends BaseActivity
     private RecyclerView mCardsView;
     private CardAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private final int FLEXIBLE_UPDATE_REQUEST_CODE = 1;
+    private final int IMMEDIATE_UPDATE_REQUEST_CODE = 2;
 
     @Inject
     Provider<MainActivityViewModel> viewModelProvider;
@@ -118,6 +131,64 @@ public class MainActivity extends BaseActivity
         });
     }
 
+    private void checkForUpdates() {
+        // Creates instance of the manager.
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        // Returns an intent object that you use to check for an update.
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                try {
+                    if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                        appUpdateManager.startUpdateFlowForResult(
+                                appUpdateInfo, AppUpdateType.IMMEDIATE, this, IMMEDIATE_UPDATE_REQUEST_CODE);
+                    } else if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                        InstallStateUpdatedListener installStateUpdatedListener = new InstallStateUpdatedListener() {
+                            @Override
+                            public void onStateUpdate(InstallState installState) {
+                                if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+                                    showInstallUpdateSnackbar(appUpdateManager);
+                                    appUpdateManager.unregisterListener(this);
+                                }
+                            }
+                        };
+                        appUpdateManager.registerListener(installStateUpdatedListener);
+                        appUpdateManager.startUpdateFlowForResult(
+                                appUpdateInfo, AppUpdateType.FLEXIBLE, this, FLEXIBLE_UPDATE_REQUEST_CODE);
+                    }
+                } catch (IntentSender.SendIntentException e) {
+                    Utils.log(e);
+                }
+            }
+        });
+    }
+
+    private void showInstallUpdateSnackbar(AppUpdateManager appUpdateManager) {
+        Snackbar snackbar =
+                Snackbar.make(
+                        findViewById(R.id.drawer_layout),
+                        getApplicationContext().getString(R.string.update_downloaded),
+                        Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(getString(R.string.update_restart), view -> appUpdateManager.completeUpdate());
+        snackbar.setActionTextColor(
+                getResources().getColor(R.color.color_primary));
+        snackbar.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == IMMEDIATE_UPDATE_REQUEST_CODE || requestCode == FLEXIBLE_UPDATE_REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+                Utils.log("Update flow failed! Result code: " + resultCode);
+                // retry immediate updates
+                if (requestCode == IMMEDIATE_UPDATE_REQUEST_CODE) {
+                    checkForUpdates();
+                }
+            }
+        }
+    }
+
     private void onNewCardsAvailable(List<Card> cards) {
         mSwipeRefreshLayout.setRefreshing(false);
         mAdapter.updateItems(cards);
@@ -158,6 +229,31 @@ public class MainActivity extends BaseActivity
             refreshCards();
             Utils.setSetting(this, Const.REFRESH_CARDS, false);
         }
+
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(appUpdateInfo -> {
+                    // If the update is downloaded but not installed, notify the user to complete the update.
+                    // For flexible updates
+                    if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                        showInstallUpdateSnackbar(appUpdateManager);
+                    }
+                    // For immediate updates
+                    if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                        // If an in-app update is already running, resume the update.
+                        try {
+                            appUpdateManager.startUpdateFlowForResult(
+                                    appUpdateInfo,
+                                    AppUpdateType.IMMEDIATE,
+                                    this,
+                                    IMMEDIATE_UPDATE_REQUEST_CODE);
+                        } catch (IntentSender.SendIntentException e) {
+                            Utils.log(e);
+                        }
+                    }
+                });
+
     }
 
     /**

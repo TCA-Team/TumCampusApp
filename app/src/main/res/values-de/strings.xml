@@ -699,4 +699,7 @@ Signatur: %5$s</string>
     <string name="cafeteria_cards_settings_title">Wähle Speisepläne</string>
     <string name="settings_chose_cafeteria_cards">Mensakarten wählen</string>
     <string name="settings_no_location_selected">Kein Standort ausgewählt</string>
+
+    <string name="update_downloaded">Ein Update wurde heruntergeladen.</string>
+    <string name="update_restart">NEUSTART</string>
 </resources>

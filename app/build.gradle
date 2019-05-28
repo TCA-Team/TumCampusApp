@@ -113,6 +113,7 @@ dependencies {
     // Play services
     implementation 'com.google.android.gms:play-services-base:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.play:core:1.5.0'
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.8'
