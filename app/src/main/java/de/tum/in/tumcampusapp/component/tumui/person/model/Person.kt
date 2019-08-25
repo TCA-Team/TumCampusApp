@@ -13,16 +13,24 @@ import java.io.Serializable
  * corresponding request.
  */
 @Xml(name = "row")
-data class Person(@PropertyElement(name = "geschlecht")
-                  var gender: String = "",
-                  @PropertyElement(name = "obfuscated_id")
-                  var id: String = "",
-                  @PropertyElement(name = "vorname")
-                  var name: String = "",
-                  @PropertyElement(name = "familienname")
-                  var surname: String = "") : Serializable {
+data class Person(
+    @PropertyElement(name = "geschlecht")
+    var gender: String = "",
+    @PropertyElement(name = "obfuscated_id")
+    var id: String = "",
+    @PropertyElement(name = "vorname")
+    var name: String = "",
+    @PropertyElement(name = "familienname")
+    var surname: String = "",
+    @PropertyElement(name = "bild_url")
+    var imageUrl: String = ""
+) : Serializable {
 
-    fun getFullName() = "$name $surname"
+    val fullName: String
+        get() = "$name $surname"
+
+    val fullImageUrl: String
+        get() = "https://campus.tum.de/tumonline/$imageUrl".replace("&amp;", "&")
 
     companion object {
 

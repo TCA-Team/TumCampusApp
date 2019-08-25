@@ -10,4 +10,4 @@ import com.tickaroo.tikxml.annotation.Xml
  * @see Lecture
  */
 @Xml(name = "rowset")
-data class LecturesResponse(@Element val lectures: List<Lecture> = mutableListOf())
+data class LecturesResponse(@Element val lectures: List<Lecture> = listOf())

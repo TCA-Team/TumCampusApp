@@ -703,4 +703,9 @@ Signatur: %5$s</string>
 
     // for opening hours
     <string name="language">de</string>
+
+    <string name="show_more_format_string">Zeige %1$d weitere %2$s …</string>
+    <string name="lectures">Vorlesungen</string>
+    <string name="people">Personen</string>
+    <string name="rooms">Räume</string>
 </resources>

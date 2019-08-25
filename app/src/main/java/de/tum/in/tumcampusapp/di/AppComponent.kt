@@ -9,6 +9,7 @@ import de.tum.`in`.tumcampusapp.component.ui.cafeteria.di.CafeteriaComponent
 import de.tum.`in`.tumcampusapp.component.ui.news.di.NewsComponent
 import de.tum.`in`.tumcampusapp.component.ui.overview.MainActivity
 import de.tum.`in`.tumcampusapp.component.ui.overview.MainFragment
+import de.tum.`in`.tumcampusapp.component.ui.search.SearchFragment
 import de.tum.`in`.tumcampusapp.component.ui.ticket.di.EventsComponent
 import de.tum.`in`.tumcampusapp.component.ui.ticket.di.TicketsComponent
 import de.tum.`in`.tumcampusapp.component.ui.tufilm.di.KinoComponent
@@ -29,6 +30,7 @@ interface AppComponent {
 
     fun inject(mainActivity: MainActivity)
     fun inject(mainFragment: MainFragment)
+    fun inject(searchFragment: SearchFragment)
     fun inject(settingsFragment: SettingsFragment)
 
     @Component.Builder

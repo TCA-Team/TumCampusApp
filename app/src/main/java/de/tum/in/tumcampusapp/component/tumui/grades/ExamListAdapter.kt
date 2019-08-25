@@ -12,7 +12,10 @@ import org.joda.time.format.DateTimeFormat
 /**
  * Custom UI adapter for a list of exams.
  */
-class ExamListAdapter(context: Context, results: List<Exam>) : SimpleStickyListHeadersAdapter<Exam>(context, results.toMutableList()) {
+class ExamListAdapter(
+    context: Context,
+    results: List<Exam>
+) : SimpleStickyListHeadersAdapter<Exam>(context, results.toMutableList()) {
 
     init {
         itemList.sort()

@@ -1,16 +1,31 @@
 package de.tum.`in`.tumcampusapp.component.tumui.lectures.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.view.isVisible
 import de.tum.`in`.tumcampusapp.R
 import de.tum.`in`.tumcampusapp.api.tumonline.CacheControl
 import de.tum.`in`.tumcampusapp.component.other.generic.activity.ActivityForAccessingTumOnline
+import de.tum.`in`.tumcampusapp.component.tumui.lectures.model.Lecture
 import de.tum.`in`.tumcampusapp.component.tumui.lectures.model.LectureDetails
 import de.tum.`in`.tumcampusapp.component.tumui.lectures.model.LectureDetailsResponse
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.Utils
-import kotlinx.android.synthetic.main.activity_lecturedetails.*
+import kotlinx.android.synthetic.main.activity_lecturedetails.appointmentsButton
+import kotlinx.android.synthetic.main.activity_lecturedetails.contentTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.dateTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.examinationAidsHeaderTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.examinationAidsTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.lectureNameTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.methodHeaderTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.methodTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.orgTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.professorTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.semesterTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.swsTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.targetsHeaderTextView
+import kotlinx.android.synthetic.main.activity_lecturedetails.targetsTextView
 
 /**
  * This Activity will show all details found on the TUMOnline web service
@@ -70,7 +85,8 @@ class LecturesDetailsActivity : ActivityForAccessingTumOnline<LectureDetailsResp
 
         lectureNameTextView.text = currentItem.title
 
-        val strLectureLanguage = StringBuilder(currentItem.semesterName ?: getString(R.string.unknown))
+        val strLectureLanguage = StringBuilder(currentItem.semesterName
+            ?: getString(R.string.unknown))
         if (currentItem.mainLanguage != null) {
             strLectureLanguage.append(" - ").append(currentItem.mainLanguage)
         }
@@ -107,6 +123,17 @@ class LecturesDetailsActivity : ActivityForAccessingTumOnline<LectureDetailsResp
         }
 
         appointmentsButton.isEnabled = true
+    }
+
+    companion object {
+
+        fun newIntent(
+            context: Context,
+            lecture: Lecture
+        ) = Intent(context, LecturesDetailsActivity::class.java).apply {
+            putExtra(Lecture.STP_SP_NR, lecture.stp_sp_nr)
+        }
+
     }
 
 }

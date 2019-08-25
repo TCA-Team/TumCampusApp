@@ -1,6 +1,7 @@
 package de.tum.`in`.tumcampusapp.component.tumui.roomfinder
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -294,6 +295,15 @@ class RoomFinderDetailsActivity : ActivityForLoadingInBackground<Void, String>(R
     }
 
     companion object {
+
         const val EXTRA_ROOM_INFO = "roomInfo"
+
+        fun newIntent(
+            context: Context,
+            room: RoomFinderRoom
+        ) = Intent(context, RoomFinderDetailsActivity::class.java).apply {
+            putExtra(EXTRA_ROOM_INFO, room)
+        }
+
     }
 }

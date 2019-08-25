@@ -80,20 +80,8 @@
         </receiver>
 
         <provider
-            android:name=".component.tumui.roomfinder.RoomFinderSuggestionProvider"
-            android:authorities="de.tum.in.tumcampusapp.component.tumui.roomfinder.RoomFinderSuggestionProvider"
-            android:exported="false" />
-        <provider
-            android:name=".component.tumui.person.PersonSearchSuggestionProvider"
-            android:authorities="de.tum.in.tumcampusapp.component.tumui.person.PersonSearchSuggestionProvider"
-            android:exported="false" />
-        <provider
             android:name=".component.ui.transportation.MVVStationSuggestionProvider"
             android:authorities="de.tum.in.tumcampusapp.component.ui.transportation.MVVStationSuggestionProvider"
-            android:exported="false" />
-        <provider
-            android:name=".component.tumui.lectures.LectureSearchSuggestionProvider"
-            android:authorities="de.tum.in.tumcampusapp.component.tumui.lectures.LectureSearchSuggestionProvider"
             android:exported="false" />
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -227,13 +215,6 @@
             android:label="@string/my_lectures"
             android:launchMode="singleTop"
             android:parentActivityName=".component.ui.overview.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable_lectures" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".component.ui.overview.MainActivity" />
@@ -269,58 +250,23 @@
                 android:value=".component.ui.overview.MainActivity" />
         </activity>
         <activity
-            android:name=".component.tumui.person.PersonSearchActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/person_search"
-            android:launchMode="singleTop"
-            android:parentActivityName=".component.ui.overview.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable_persons" />
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".component.ui.overview.MainActivity" />
-        </activity>
-        <activity
             android:name=".component.tumui.person.PersonDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/person_information"
-            android:parentActivityName=".component.tumui.person.PersonSearchActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.tum.in.tumcampusapp.component.tumui.person.PersonSearchActivity" />
-        </activity>
-        <activity
-            android:name=".component.tumui.roomfinder.RoomFinderActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/roomfinder"
-            android:launchMode="singleTop"
             android:parentActivityName=".component.ui.overview.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".component.ui.overview.MainActivity" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable_rooms" />
+                android:value="de.tum.in.tumcampusapp.component.ui.overview.MainActivity" />
         </activity>
         <activity
             android:name=".component.tumui.roomfinder.RoomFinderDetailsActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/roomfinder"
-            android:parentActivityName=".component.tumui.roomfinder.RoomFinderActivity"
+            android:parentActivityName=".component.ui.overview.MainActivity"
             android:theme="@style/AppTheme.NoDrawerLayout">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.tum.in.tumcampusapp.component.tumui.roomfinder.RoomFinderActivity" />
+                android:value="de.tum.in.tumcampusapp.component.ui.overview.MainActivity" />
         </activity>
         <activity
             android:name=".component.ui.studyroom.StudyRoomsActivity"

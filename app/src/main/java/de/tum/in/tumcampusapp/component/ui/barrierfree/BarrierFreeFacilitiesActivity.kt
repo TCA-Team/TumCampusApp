@@ -10,10 +10,10 @@ import de.tum.`in`.tumcampusapp.component.other.general.model.Recent
 import de.tum.`in`.tumcampusapp.component.other.generic.activity.ActivityForAccessingTumCabe
 import de.tum.`in`.tumcampusapp.component.other.locations.LocationManager
 import de.tum.`in`.tumcampusapp.component.tumui.roomfinder.RoomFinderDetailsActivity
-import de.tum.`in`.tumcampusapp.component.tumui.roomfinder.RoomFinderListAdapter
 import de.tum.`in`.tumcampusapp.component.tumui.roomfinder.model.RoomFinderRoom
 import de.tum.`in`.tumcampusapp.database.TcaDb
-import kotlinx.android.synthetic.main.activity_barrier_free_facilities.*
+import kotlinx.android.synthetic.main.activity_barrier_free_facilities.barrierFreeFacilitiesListView
+import kotlinx.android.synthetic.main.activity_barrier_free_facilities.spinnerToolbar
 import retrofit2.Call
 
 class BarrierFreeFacilitiesActivity : ActivityForAccessingTumCabe<List<RoomFinderRoom>>(
@@ -53,7 +53,7 @@ class BarrierFreeFacilitiesActivity : ActivityForAccessingTumCabe<List<RoomFinde
     }
 
     override fun onDownloadSuccessful(response: List<RoomFinderRoom>) {
-        barrierFreeFacilitiesListView.adapter = RoomFinderListAdapter(this, response)
+        barrierFreeFacilitiesListView.adapter = RoomsAdapter(this, response)
         barrierFreeFacilitiesListView.setOnItemClickListener { _, _, index, _ ->
             val facility = response[index]
             recents.insert(Recent(facility.toString(), RecentsDao.ROOMS))

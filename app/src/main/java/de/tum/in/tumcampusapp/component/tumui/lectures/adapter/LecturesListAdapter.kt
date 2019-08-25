@@ -19,7 +19,10 @@ import de.tum.`in`.tumcampusapp.component.ui.chat.activity.ChatRoomsActivity
  * show semester info as sticky header.
  */
 
-class LecturesListAdapter(context: Context, results: MutableList<Lecture>) : SimpleStickyListHeadersAdapter<Lecture>(context, results) {
+class LecturesListAdapter(
+    context: Context,
+    results: MutableList<Lecture>
+) : SimpleStickyListHeadersAdapter<Lecture>(context, results) {
 
     override fun generateHeaderName(item: Lecture) = super.generateHeaderName(item)
             .replace("Sommersemester", this.context

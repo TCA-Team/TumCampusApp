@@ -49,4 +49,5 @@
     <dimen name="add_thumbnail_button_size">60dp</dimen>
     <dimen name="thumbnail_size">75dp</dimen>
     <dimen name="feedback_img_big">300dp</dimen>
+    <dimen name="search_result_more_button_inset">56dp</dimen>
 </resources>

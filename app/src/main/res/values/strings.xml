@@ -755,4 +755,9 @@ Signature: %5$s</string>
 
     // for opening hours
     <string name="language">en</string>
+
+    <string name="show_more_format_string">Show %1$d more %2$s …</string>
+    <string name="lectures">lectures</string>
+    <string name="people">people</string>
+    <string name="rooms">rooms</string>
 </resources>

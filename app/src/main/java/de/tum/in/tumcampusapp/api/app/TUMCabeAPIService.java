@@ -173,7 +173,7 @@ public interface TUMCabeAPIService {
 
     //RoomFinder maps
     @GET(API_ROOM_FINDER + API_ROOM_FINDER_SEARCH + "{searchStrings}")
-    Call<List<RoomFinderRoom>> fetchRooms(@Path("searchStrings") String searchStrings);
+    Single<List<RoomFinderRoom>> fetchRooms(@Path("searchStrings") String query);
 
     //RoomFinder cordinates
     @GET(API_ROOM_FINDER + API_ROOM_FINDER_COORDINATES + "{archId}")

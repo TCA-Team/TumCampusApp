@@ -1,7 +1,5 @@
 package de.tum.`in`.tumcampusapp.component.tumui.calendar
 
-import android.app.SearchManager
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.transaction
 import de.tum.`in`.tumcampusapp.R
 import de.tum.`in`.tumcampusapp.api.tumonline.TUMOnlineClient
 import de.tum.`in`.tumcampusapp.api.tumonline.exception.RequestLimitReachedException
@@ -17,14 +16,24 @@ import de.tum.`in`.tumcampusapp.component.other.navigation.NavDestination
 import de.tum.`in`.tumcampusapp.component.other.navigation.NavigationManager
 import de.tum.`in`.tumcampusapp.component.tumui.calendar.model.CalendarItem
 import de.tum.`in`.tumcampusapp.component.tumui.calendar.model.DeleteEventResponse
-import de.tum.`in`.tumcampusapp.component.tumui.roomfinder.RoomFinderActivity
+import de.tum.`in`.tumcampusapp.component.ui.search.SearchFragment
 import de.tum.`in`.tumcampusapp.database.TcaDb
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.Const.CALENDAR_ID_PARAM
 import de.tum.`in`.tumcampusapp.utils.Const.CALENDAR_SHOWN_IN_CALENDAR_ACTIVITY_PARAM
 import de.tum.`in`.tumcampusapp.utils.Utils
 import de.tum.`in`.tumcampusapp.utils.ui.RoundedBottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_calendar_details.*
+import kotlinx.android.synthetic.main.fragment_calendar_details.buttonsContainer
+import kotlinx.android.synthetic.main.fragment_calendar_details.cancelButtonsContainer
+import kotlinx.android.synthetic.main.fragment_calendar_details.dateTextView
+import kotlinx.android.synthetic.main.fragment_calendar_details.deleteButton
+import kotlinx.android.synthetic.main.fragment_calendar_details.descriptionTextView
+import kotlinx.android.synthetic.main.fragment_calendar_details.editButton
+import kotlinx.android.synthetic.main.fragment_calendar_details.locationIcon
+import kotlinx.android.synthetic.main.fragment_calendar_details.locationLinearLayout
+import kotlinx.android.synthetic.main.fragment_calendar_details.showInCalendarButton
+import kotlinx.android.synthetic.main.fragment_calendar_details.showInCalendarButtonContainer
+import kotlinx.android.synthetic.main.fragment_calendar_details.titleTextView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -164,10 +173,11 @@ class CalendarDetailsFragment : RoundedBottomSheetDialogFragment() {
     }
 
     private fun onLocationClicked(location: String) {
-        val findStudyRoomIntent = Intent()
-        findStudyRoomIntent.putExtra(SearchManager.QUERY, Utils.extractRoomNumberFromLocation(location))
-        findStudyRoomIntent.setClass(requireContext(), RoomFinderActivity::class.java)
-        startActivity(findStudyRoomIntent)
+        val query = Utils.extractRoomNumberFromLocation(location)
+        val fragment = SearchFragment.newInstance(query)
+        requireFragmentManager().transaction {
+            replace(R.id.contentFrame, fragment)
+        }
     }
 
     companion object {

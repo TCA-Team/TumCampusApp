@@ -23,7 +23,7 @@ import de.tum.`in`.tumcampusapp.utils.tryOrNull
 import org.jetbrains.anko.doAsync
 import java.io.IOException
 import java.lang.Double.parseDouble
-import java.util.*
+import java.util.LinkedList
 import javax.inject.Inject
 
 /**
@@ -311,9 +311,9 @@ class LocationManager @Inject constructor(c: Context) {
         }
 
         try {
-            val rooms = TUMCabeClient.getInstance(mContext).fetchRooms(loc)
+            val rooms = TUMCabeClient.getInstance(mContext).fetchRooms(loc).blockingGet()
 
-            if (rooms != null && !rooms.isEmpty()) {
+            if (rooms != null && rooms.isNotEmpty()) {
                 val room = rooms[0].arch_id
                 return fetchRoomGeo(room)
             }

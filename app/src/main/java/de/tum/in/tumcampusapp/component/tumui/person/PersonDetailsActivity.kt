@@ -1,25 +1,40 @@
 package de.tum.`in`.tumcampusapp.component.tumui.person
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.tum.`in`.tumcampusapp.R
 import de.tum.`in`.tumcampusapp.api.tumonline.CacheControl
 import de.tum.`in`.tumcampusapp.component.other.generic.activity.ActivityForAccessingTumOnline
-import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.*
-import de.tum.`in`.tumcampusapp.component.tumui.person.model.Employee
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.AbstractContactItem
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.EmailContactItem
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.HomepageContactItem
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.InformationContactItem
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.MobilePhoneContactItem
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.OfficeHoursContactItem
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.PhoneContactItem
+import de.tum.`in`.tumcampusapp.component.tumui.person.adapteritems.RoomContactItem
 import de.tum.`in`.tumcampusapp.component.tumui.person.model.Person
+import de.tum.`in`.tumcampusapp.component.tumui.person.model.Employee
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.ContactsHelper
-import kotlinx.android.synthetic.main.activity_person_details.*
+import kotlinx.android.synthetic.main.activity_person_details.contactItemsRecyclerView
+import kotlinx.android.synthetic.main.activity_person_details.dividerGroupsContactItems
+import kotlinx.android.synthetic.main.activity_person_details.dividerNameGroups
+import kotlinx.android.synthetic.main.activity_person_details.groupsRecyclerView
+import kotlinx.android.synthetic.main.activity_person_details.nameTextView
+import kotlinx.android.synthetic.main.activity_person_details.pictureImageView
+import kotlinx.android.synthetic.main.activity_person_details.scrollView
 
 /**
  * Activity to show information about a person at TUM.
@@ -32,14 +47,14 @@ class PersonDetailsActivity : ActivityForAccessingTumOnline<Employee>(R.layout.a
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val person = intent.extras?.getSerializable("personObject") as? Person
+        val person = intent.extras?.getSerializable(KEY_PERSON) as? Person
         if (person == null) {
             finish()
             return
         }
 
         personId = person.id
-        title = person.getFullName()
+        title = person.fullName
 
         loadPersonDetails(person.id, CacheControl.USE_CACHE)
     }
@@ -219,7 +234,16 @@ class PersonDetailsActivity : ActivityForAccessingTumOnline<Employee>(R.layout.a
     }
 
     companion object {
+
         private val PERMISSIONS_CONTACTS = arrayOf(Manifest.permission.WRITE_CONTACTS)
+        private val KEY_PERSON = "KEY_PERSON"
+
+        fun newIntent(
+            context: Context,
+            person: Person
+        ) = Intent(context, PersonDetailsActivity::class.java).apply {
+            putExtra(KEY_PERSON, person)
+        }
     }
 
 }

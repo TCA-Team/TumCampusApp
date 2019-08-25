@@ -2,6 +2,9 @@ package de.tum.in.tumcampusapp.api.app;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -13,8 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import de.tum.in.tumcampusapp.api.app.exception.NoPrivateKey;
 import de.tum.in.tumcampusapp.api.app.model.DeviceRegister;
 import de.tum.in.tumcampusapp.api.app.model.DeviceUploadFcmToken;
@@ -284,10 +285,8 @@ public final class TUMCabeClient {
         return service.fetchAvailableMaps(ApiHelper.encodeUrl(archId));
     }
 
-    public List<RoomFinderRoom> fetchRooms(String searchStrings) throws IOException {
-        return service.fetchRooms(ApiHelper.encodeUrl(searchStrings))
-                .execute()
-                .body();
+    public Single<List<RoomFinderRoom>> fetchRooms(String searchStrings) {
+        return service.fetchRooms(ApiHelper.encodeUrl(searchStrings));
     }
 
     public RoomFinderCoordinate fetchCoordinates(String archId) throws IOException {

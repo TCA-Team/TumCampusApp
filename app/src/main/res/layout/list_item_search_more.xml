@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:padding="@dimen/material_default_padding">
+
+    <TextView
+        android:id="@+id/showMoreTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/search_result_more_button_inset"
+        android:textSize="18sp"
+        android:textColor="@color/tum_500"
+        tools:text="Show 3 more rooms ..." />
+
+</FrameLayout>

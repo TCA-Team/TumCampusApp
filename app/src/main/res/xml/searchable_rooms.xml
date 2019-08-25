@@ -1,7 +1,0 @@
-<searchable
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:hint="@string/search_rooms"
-    android:label="@string/app_name"
-    android:searchSuggestAuthority="de.tum.in.tumcampusapp.component.tumui.roomfinder.RoomFinderSuggestionProvider"
-    android:searchSuggestSelection=" ?">
-</searchable>

@@ -25,21 +25,23 @@ import de.tum.`in`.tumcampusapp.component.tumui.tutionfees.model.TuitionList
 import de.tum.`in`.tumcampusapp.utils.CacheManager
 import de.tum.`in`.tumcampusapp.utils.Const
 import de.tum.`in`.tumcampusapp.utils.DateTimeUtils
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 class TUMOnlineClient(private val apiService: TUMOnlineAPIService) {
 
     fun getCalendar(cacheControl: CacheControl): Call<EventsResponse> {
         return apiService.getCalendar(
-                Const.CALENDAR_MONTHS_BEFORE, Const.CALENDAR_MONTHS_AFTER, cacheControl.header)
+            Const.CALENDAR_MONTHS_BEFORE, Const.CALENDAR_MONTHS_AFTER, cacheControl.header)
     }
 
     fun createEvent(calendarItem: CalendarItem, eventId: String?): Call<CreateEventResponse> {
         val start = DateTimeUtils.getDateTimeString(calendarItem.eventStart)
         val end = DateTimeUtils.getDateTimeString(calendarItem.eventEnd)
         return apiService.createCalendarEvent(
-                calendarItem.title, calendarItem.description, start, end, eventId)
+            calendarItem.title, calendarItem.description, start, end, eventId)
     }
 
     fun deleteEvent(eventId: String): Call<DeleteEventResponse> {
@@ -66,11 +68,15 @@ class TUMOnlineClient(private val apiService: TUMOnlineAPIService) {
         return apiService.searchLectures(query)
     }
 
+    fun searchLecturesRx(query: String): Single<LecturesResponse> {
+        return apiService.searchLecturesRx(query)
+    }
+
     fun getPersonDetails(id: String, cacheControl: CacheControl): Call<Employee> {
         return apiService.getPersonDetails(id, cacheControl.header)
     }
 
-    fun searchPerson(query: String): Call<PersonList> {
+    fun searchPerson(query: String): Single<PersonList> {
         return apiService.searchPerson(query)
     }
 
@@ -110,25 +116,26 @@ class TUMOnlineClient(private val apiService: TUMOnlineAPIService) {
             val cacheManager = CacheManager(context)
 
             val client = ApiHelper.getOkHttpClient(context)
-                    .newBuilder()
-                    .cache(cacheManager.cache)
-                    .addInterceptor(AddTokenInterceptor(context))
-                    .addInterceptor(CheckTokenInterceptor(context))
-                    .addNetworkInterceptor(CacheResponseInterceptor())
-                    .addNetworkInterceptor(CheckErrorInterceptor(context))
-                    .build()
+                .newBuilder()
+                .cache(cacheManager.cache)
+                .addInterceptor(AddTokenInterceptor(context))
+                .addInterceptor(CheckTokenInterceptor(context))
+                .addNetworkInterceptor(CacheResponseInterceptor())
+                .addNetworkInterceptor(CheckErrorInterceptor(context))
+                .build()
 
             val tikXml = TikXml.Builder()
-                    .exceptionOnUnreadXml(false)
-                    .build()
+                .exceptionOnUnreadXml(false)
+                .build()
             val xmlConverterFactory = TikXmlConverterFactory.create(tikXml)
 
             val apiService = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(client)
-                    .addConverterFactory(xmlConverterFactory)
-                    .build()
-                    .create(TUMOnlineAPIService::class.java)
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(xmlConverterFactory)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+                .create(TUMOnlineAPIService::class.java)
             return TUMOnlineClient(apiService)
         }
 

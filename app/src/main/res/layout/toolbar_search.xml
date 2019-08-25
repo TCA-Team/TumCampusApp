@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        android:elevation="@dimen/material_default_elevation"
+        android:theme="@style/TumToolbar"
+        app:popupTheme="@style/TumToolbarPopUp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:hint="@string/search"
+                android:imeOptions="actionSearch|flagNoExtractUi"
+                android:importantForAutofill="no"
+                android:inputType="text|textCapSentences"
+                android:maxLines="1"
+                android:textColorHint="@color/text_dark_gray" />
+
+            <ImageButton
+                android:id="@+id/clearButton"
+                android:layout_width="@dimen/icon_default"
+                android:layout_height="@dimen/icon_default"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/material_default_padding"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_action_cancel"
+                android:tint="@color/tum_500" />
+
+        </FrameLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</com.google.android.material.appbar.AppBarLayout>
