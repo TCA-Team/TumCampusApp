@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "github.com/TUM-Dev/Campus-Backend/api";
+option java_multiple_files = true;
+option java_package = "de.tum.in.tumcampusapp.api.backend";
+option java_outer_classname = "CampusApiProto";
+
+package api;
+
+import "google/protobuf/timestamp.proto";
+
+service Campus {
+    rpc GetTopNews (GetTopNewsRequest) returns (GetTopNewsReply);
+}
+
+message GetTopNewsRequest {
+}
+
+message GetTopNewsReply {
+    string name = 1;
+    string link = 2;
+    google.protobuf.Timestamp created = 3;
+    google.protobuf.Timestamp from = 4;
+    google.protobuf.Timestamp to = 5;
+}
