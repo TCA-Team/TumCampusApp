@@ -23,6 +23,7 @@ import de.tum.in.tumcampusapp.api.app.model.TUMCabeStatus;
 import de.tum.in.tumcampusapp.api.app.model.TUMCabeVerification;
 import de.tum.in.tumcampusapp.api.app.model.UploadStatus;
 import de.tum.in.tumcampusapp.component.other.locations.model.BuildingToGps;
+import de.tum.in.tumcampusapp.component.ui.bibreservation.model.BibAppointment;
 import de.tum.in.tumcampusapp.component.tumui.feedback.model.Feedback;
 import de.tum.in.tumcampusapp.component.tumui.feedback.model.FeedbackResult;
 import de.tum.in.tumcampusapp.component.tumui.roomfinder.model.RoomFinderCoordinate;
@@ -102,6 +103,7 @@ public final class TUMCabeClient {
     static final String API_CHAT_ROOMS = API_CHAT + "rooms/";
     static final String API_CHAT_MEMBERS = API_CHAT + "members/";
     static final String API_OPENING_HOURS = "openingtimes/";
+    static final String API_BIB_RESERVATIONS = "bibreservation/";
 
     private static TUMCabeClient instance;
     private final TUMCabeAPIService service;
@@ -118,6 +120,7 @@ public final class TUMCabeClient {
                 .client(ApiHelper.getOkHttpClient(c))
                 .build()
                 .create(TUMCabeAPIService.class);
+
     }
 
     public static synchronized TUMCabeClient getInstance(Context c) {
@@ -420,6 +423,10 @@ public final class TUMCabeClient {
         return service.getOpeningHours(language)
                       .execute()
                       .body();
+    }
+
+    public void getReservableBibAppointments(Callback<List<BibAppointment>> callback) {
+        service.getReservableBibAppointments().enqueue(callback);
     }
 
 }

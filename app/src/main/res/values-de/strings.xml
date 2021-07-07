@@ -717,4 +717,17 @@ Signatur: %5$s</string>
     // for opening hours
     <string name="language">de</string>
     <string name="use_existing">Bestehendes verwenden</string>
+
+    // for library reservations
+    <string name="bib_reservation">Arbeitsplatz Reservieren</string>
+    <string name="library_name_sg">Stammgelände</string>
+    <string name="library_name_mi">Mathematik &amp; Informatik</string>
+    <string name="library_name_chem">Chemie</string>
+    <string name="library_name_mw">Maschinenwesen</string>
+    <string name="library_name_med">Medizin</string>
+    <string name="library_name_phy">Physik</string>
+    <string name="library_name_spo">Sport &amp; Gesundheitswissenschaften</string>
+    <string name="library_name_str">Straubing</string>
+    <string name="library_name_whs">Weihenstephan</string>
+    <string name="book">Reservieren</string>
 </resources>

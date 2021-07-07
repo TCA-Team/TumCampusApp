@@ -8,6 +8,7 @@ import com.google.android.material.navigation.NavigationView
 import de.tum.`in`.tumcampusapp.R
 import de.tum.`in`.tumcampusapp.api.tumonline.AccessTokenManager
 import de.tum.`in`.tumcampusapp.component.other.settings.SettingsActivity
+import de.tum.`in`.tumcampusapp.component.ui.bibreservation.BibReservationFragment
 import de.tum.`in`.tumcampusapp.component.tumui.calendar.CalendarFragment
 import de.tum.`in`.tumcampusapp.component.tumui.feedback.FeedbackActivity
 import de.tum.`in`.tumcampusapp.component.tumui.grades.GradesFragment
@@ -135,6 +136,7 @@ class DrawerMenuHelper(
                 NavItem.FragmentDestination(R.string.menues, R.drawable.ic_cutlery, CafeteriaFragment::class.java),
                 NavItem.FragmentDestination(R.string.study_rooms, R.drawable.ic_outline_group_work_24px, StudyRoomsFragment::class.java),
                 NavItem.FragmentDestination(R.string.roomfinder, R.drawable.ic_outline_location_on_24px, RoomFinderFragment::class.java),
+                NavItem.FragmentDestination(R.string.bib_reservation, R.drawable.ic_local_library_black_24dp, BibReservationFragment::class.java),
                 NavItem.FragmentDestination(R.string.person_search, R.drawable.ic_outline_people_outline_24px, PersonSearchFragment::class.java, true),
                 NavItem.FragmentDestination(R.string.news, R.drawable.ic_rss, NewsFragment::class.java),
                 NavItem.FragmentDestination(R.string.events_tickets, R.drawable.tickets, EventsFragment::class.java),

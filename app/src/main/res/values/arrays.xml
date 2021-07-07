@@ -203,5 +203,18 @@
         <item>5,0</item>
         <item>B</item>
     </string-array>
+
+    <string-array name="libraries">
+        <item>@string/library_name_sg</item>
+        <item>@string/library_name_mi</item>
+        <item>@string/library_name_chem</item>
+        <item>@string/library_name_mw</item>
+        <item>@string/library_name_med</item>
+        <item>@string/library_name_phy</item>
+        <item>@string/library_name_spo</item>
+        <item>@string/library_name_str</item>
+        <item>@string/library_name_whs</item>
+    </string-array>
+
 </resources>
 

@@ -772,4 +772,18 @@ Signature: %5$s</string>
     // for opening hours
     <string name="language">en</string>
     <string name="use_existing">Use existing</string>
+
+
+    // Bib reservations
+    <string name="bib_reservation">Library Reservation</string>
+    <string name="library_name_sg">Main Campus</string>
+    <string name="library_name_mi">Mathematics &amp; Informatics</string>
+    <string name="library_name_chem">Chemistry</string>
+    <string name="library_name_mw">Mechanical Engineering</string>
+    <string name="library_name_med">Medicine</string>
+    <string name="library_name_phy">Physics</string>
+    <string name="library_name_spo">Sport &amp; Health Sciences</string>
+    <string name="library_name_str">Straubing</string>
+    <string name="library_name_whs">Weihenstephan</string>
+    <string name="book">Book</string>
 </resources>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dateWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_primary"
+        android:padding="@dimen/padding_default"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_default"
+            android:text="01.01.2020"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/material_large_padding"
+        android:alpha=".6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateWrapper"
+        app:srcCompat="@drawable/ic_outline_access_time_24px"
+        app:tint="@color/text_dark_secondary" />
+
+    <TextView
+        android:id="@+id/fromTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/material_default_padding"
+        android:text="08:00"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/dateWrapper"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" - "
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fromTime"
+        app:layout_constraintTop_toBottomOf="@+id/dateWrapper"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tilTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="14:45"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/dateWrapper"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/reserveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/material_default_padding"
+        android:backgroundTint="@color/color_primary"
+        android:text="@string/book"
+        app:layout_constraintBottom_toBottomOf="@+id/tilTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tilTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
